@@ -1,0 +1,5 @@
+# Ignore input files for puzzles
+.input
+
+# Ignore Jetbrains IDE files
+/.idea
