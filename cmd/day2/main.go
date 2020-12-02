@@ -17,13 +17,24 @@ type PasswordPolicy struct {
 }
 
 func (policy PasswordPolicy) ValidatePassword(password string) bool {
-	if strings.Count(password, policy.letter) < policy.min {
-		return false
+	// Old validation
+	//if strings.Count(password, policy.letter) < policy.min {
+	//	return false
+	//}
+	//if strings.Count(password, policy.letter) > policy.max {
+	//	return false
+	//}
+	// return true
+	// End of old validation
+	minMatch := string(password[policy.min]) == policy.letter
+	maxMatch := string(password[policy.max]) == policy.letter
+	if minMatch && !maxMatch {
+		return true
 	}
-	if strings.Count(password, policy.letter) > policy.max {
-		return false
+	if maxMatch && !minMatch {
+		return true
 	}
-	return true
+	return false
 }
 
 func ParsePolicy(policyString string) PasswordPolicy {
