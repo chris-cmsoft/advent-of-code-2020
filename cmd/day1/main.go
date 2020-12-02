@@ -7,24 +7,7 @@ import (
 	"github.com/rs/zerolog/log"
 	"os"
 	"strconv"
-	"strings"
 )
-
-func parseInput(inputText string) ([]int64, error) {
-	inputs := make([]int64, 0)
-	for _, integer := range strings.Split(inputText, "\n") {
-		if integer == "" {
-			// If a newline is added to the end of the input, we might get an empty value
-			continue
-		}
-		parsedInteger, err := strconv.ParseInt(integer, 10, 64)
-		if err != nil {
-			return nil, err
-		}
-		inputs = append(inputs, parsedInteger)
-	}
-	return inputs, nil
-}
 
 func SumInputs(inputs []int64) int64 {
 	total := int64(0)
@@ -38,7 +21,7 @@ func GetCombosMatching(total int64, inputs []int64) ([]int64, error) {
 	for key1, input1 := range inputs {
 		// We want to only loop items after the first, as items before it would already have been compared before
 		for key2, input2 := range inputs[key1+1:] {
-			key2calculated := key1+key2+1
+			key2calculated := key1 + key2 + 1
 			for _, input3 := range inputs[key2calculated+1:] {
 				if SumInputs([]int64{
 					input1,
